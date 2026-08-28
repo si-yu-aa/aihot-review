@@ -72,6 +72,7 @@ class AIHotReviewTest(unittest.TestCase):
 
         self.assertLess(signal["score"], 4)
         self.assertEqual(signal["decision"], "review")
+        self.assertEqual(signal["suggested_node"], "")
 
     def test_empty_inbox_does_not_implicitly_contact_upstream(self):
         with mock.patch.object(self.server, "fetch_aihot") as fetch:
@@ -229,6 +230,10 @@ class AIHotReviewTest(unittest.TestCase):
         nodes = self.server.load_tree_nodes()
 
         self.assertEqual([node["id"] for node in nodes], ["ai", "models"])
+        self.assertEqual(
+            self.server.infer_node("HBM memory update"),
+            "hbm4-capacity-bandwidth-and-ai-memory-supply",
+        )
 
     def test_health_endpoint_reports_local_state_without_upstream_access(self):
         self.write_run(
@@ -245,7 +250,7 @@ class AIHotReviewTest(unittest.TestCase):
             payload = json.loads(response.read())
 
         self.assertEqual(payload["status"], "ok")
-        self.assertEqual(payload["version"], "0.2.0")
+        self.assertEqual(payload["version"], "0.2.1")
         self.assertEqual(payload["runs_count"], 1)
         self.assertEqual(payload["signal_count"], 1)
 

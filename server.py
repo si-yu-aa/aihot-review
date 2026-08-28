@@ -30,7 +30,7 @@ from zoneinfo import ZoneInfo
 
 
 APP_DIR = Path(__file__).resolve().parent
-VERSION = "0.2.0"
+VERSION = "0.2.1"
 
 
 def discover_miner_root() -> Path | None:
@@ -42,7 +42,6 @@ def discover_miner_root() -> Path | None:
 
 
 MINER_ROOT = discover_miner_root()
-REPO_ROOT = MINER_ROOT or APP_DIR
 DEFAULT_STATE_DIR = MINER_ROOT / "state" / "signal_inbox" if MINER_ROOT else APP_DIR / "data"
 STATE_DIR = Path(os.environ.get("AIHOT_DATA_DIR", DEFAULT_STATE_DIR)).expanduser().resolve()
 RUNS_DIR = STATE_DIR / "aihot-runs"
@@ -201,10 +200,14 @@ def item_text(item: dict[str, Any]) -> str:
 
 
 def infer_node(text: str) -> str:
+    # Node suggestions are a Miner integration, not a standalone requirement.
+    # A fresh clone deliberately leaves this field empty.
+    if TREE_PATH is None or not TREE_PATH.exists():
+        return ""
     for pattern, node_id in NODE_HINTS:
         if pattern.search(text):
             return node_id
-    return "ai"
+    return ""
 
 
 def score_item(item: dict[str, Any]) -> dict[str, Any]:

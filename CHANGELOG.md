@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.2.1 - 2026-08-28
+
+- Removed the last standalone soft dependency on Miner node names. A fresh
+  clone now leaves `suggested_node` empty; node inference is enabled only when
+  a Miner `tree.json` is present or explicitly configured.
+
 ## 0.2.0 - 2026-08-28
 
 - Extracted the Miner review app into a standalone GitHub-ready project.

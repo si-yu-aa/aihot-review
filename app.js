@@ -430,7 +430,7 @@ function signalPayload(signal) {
     id: signal.id,
     decision: signal.decision,
     strength: signal.strength,
-    suggested_node: signal.suggested_node || "ai",
+    suggested_node: signal.suggested_node || "",
     user_note: signal.user_note || "",
   };
 }
@@ -492,7 +492,7 @@ async function saveSelected() {
     clearTimeout(autosaveTimers.get(signal.id));
     autosaveTimers.delete(signal.id);
   }
-  signal.suggested_node = $("nodeInput").value.trim() || "ai";
+  signal.suggested_node = $("nodeInput").value.trim();
   signal.user_note = $("noteInput").value.trim();
   await saveSignal(signal, true);
   renderDetail();
