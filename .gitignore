@@ -1,0 +1,27 @@
+# Runtime state and local configuration
+data/*
+!data/.gitkeep
+.env
+*.log
+*.pid
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
+
+# Local artifacts
+tmp/
+dist/
+build/

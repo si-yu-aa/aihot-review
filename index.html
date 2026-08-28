@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI HOT Signal Review</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <h1>AI HOT Signal Review</h1>
+          <p id="runMeta">Loading signals...</p>
+        </div>
+        <div class="topbar-actions">
+          <label class="mode-control">
+            <span>Mode</span>
+            <select id="pullMode">
+              <option value="since_last" selected>Since last pull</option>
+              <option value="hours">Last N hours</option>
+            </select>
+          </label>
+          <label class="hours-control">
+            <span>Window</span>
+            <input id="hoursInput" type="number" min="1" max="168" value="24" />
+            <span>h</span>
+          </label>
+          <button id="pullButton" class="primary">Pull Latest</button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <aside class="sidebar">
+          <section class="filter-section">
+            <label for="searchInput">Search</label>
+            <input id="searchInput" type="search" placeholder="华为 / HBM / 机器人 / ASIC" />
+          </section>
+
+          <section class="filter-section">
+            <h2>Decision</h2>
+            <div id="decisionFilters" class="segmented vertical"></div>
+          </section>
+
+          <section class="filter-section">
+            <h2>Signal Type</h2>
+            <div id="tagFilters" class="chip-list"></div>
+          </section>
+
+          <section class="filter-section compact">
+            <h2>Shortcuts</h2>
+            <p><kbd>j</kbd>/<kbd>k</kbd> select</p>
+            <p><kbd>1</kbd>/<kbd>2</kbd>/<kbd>3</kbd> keep/review/drop</p>
+            <p><kbd>h</kbd>/<kbd>m</kbd>/<kbd>l</kbd> strength</p>
+            <p><kbd>o</kbd> open source</p>
+          </section>
+        </aside>
+
+        <section class="signal-list-panel">
+          <div class="list-toolbar">
+            <div>
+              <strong id="visibleCount">0</strong>
+              <span>matching</span>
+            </div>
+            <select id="sortSelect">
+              <option value="score">Score</option>
+              <option value="time">Time</option>
+              <option value="decision">Decision</option>
+            </select>
+          </div>
+          <div id="signalList" class="signal-list" tabindex="0"></div>
+        </section>
+
+        <aside class="detail-panel">
+          <div id="emptyState" class="empty-state">
+            <h2>Select a signal</h2>
+            <p>Choose a row to inspect the source and apply your decision.</p>
+          </div>
+
+          <div id="detailContent" class="detail-content hidden">
+            <div class="detail-kicker" id="detailMeta"></div>
+            <h2 id="detailTitle"></h2>
+            <p id="detailSummary"></p>
+            <a id="detailSource" target="_blank" rel="noreferrer">Open source</a>
+
+            <div class="field-group">
+              <label>Decision</label>
+              <div class="segmented">
+                <button data-decision="keep">Keep</button>
+                <button data-decision="review">Review</button>
+                <button data-decision="drop">Drop</button>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label>Strength</label>
+              <div class="segmented">
+                <button data-strength="high">High</button>
+                <button data-strength="medium">Medium</button>
+                <button data-strength="low">Low</button>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="nodeInput">Suggested Node</label>
+              <input id="nodeInput" list="nodeList" autocomplete="off" />
+              <datalist id="nodeList"></datalist>
+            </div>
+
+            <div class="field-group">
+              <label for="noteInput">User Note</label>
+              <textarea id="noteInput" rows="7" placeholder="你的判断、映射理由、需要验证的问题"></textarea>
+            </div>
+
+            <button id="saveButton" class="primary wide">Save Now</button>
+            <p id="saveStatus" class="save-status"></p>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
