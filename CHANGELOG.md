@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - Removed the last standalone soft dependency on Miner node names. A fresh
   clone now leaves `suggested_node` empty; node inference is enabled only when
   a Miner `tree.json` is present or explicitly configured.
+- Updated the CI runtime actions to their Node 24-based major versions.
 
 ## 0.2.0 - 2026-08-28
 
